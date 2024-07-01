@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.textshadow{
+    text-shadow: 2px 2px #292929;
+}
+
+
+.shadow {
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-radius: 5px;
+}
+html {
+    overflow: scroll;
+    overflow-x: hidden;
+}
+::-webkit-scrollbar {
+    width: 0;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+.setmargin{
+    margin-top:25px;
+}
