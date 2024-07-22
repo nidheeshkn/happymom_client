@@ -17,7 +17,8 @@ import teen from "../../public/teen.png";
 export default function Home() {
   const router = useRouter();
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
+    const token = sessionStorage.getItem("sls_token");
+    console.log(token);
 
     if (token) {
       router.push("/subscriber/home");

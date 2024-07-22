@@ -6,7 +6,7 @@ function Ham() {
     <div className="  ">
         <div className="w-full px-5  bg-white  flex justify-between items-center pt-5">
           <div className="text-xl font-bold">Happymom</div>
-          <div className="drawer drawer-end w-[1rem]">
+          <div className="drawer drawer-end w-[2rem]">
             <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content w-[2rem]">
               <label htmlFor="my-drawer-4" className="flex flex-col">
@@ -27,6 +27,12 @@ function Ham() {
                 </li>
                 <li>
                   <a href="/subscriber/userprofile">Profile</a>
+                </li>
+                <li>
+                  <a href="/subscriber/resetpassword">Reset password</a>
+                </li>
+                <li>
+                  <a href="/subscriber/updateemail">update e-mail</a>
                 </li>
                 <li>
                   <a onClick={() => {

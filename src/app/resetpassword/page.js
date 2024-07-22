@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import axios from "@/app/instance"
 
 
-function Registration() {
+function ResetPassword() {
  const [showinfo,setShowInfo] = useState(false)
 
 
@@ -156,4 +156,4 @@ setTimeout(()=>{
   );
 }
 
-export default Registration;
+export default ResetPassword;

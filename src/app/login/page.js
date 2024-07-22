@@ -9,32 +9,18 @@ import view from '../../../public/view.png'
 import hide from '../../../public/hide.png'
 
 function Registration() {
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginerr, setLoginErr] = useState("");
 
-
-
-
-  
-
-
-
-
-
-
-
-
-  
-  
-  
-  
-
-
-  
   const [hookform,setHooks] = useState()
   const [show,setShow] = useState("view")
   const router = useRouter();
+
+
+
+  
   useEffect(() => {
     // (async function (){
     //     if(location.href.includes("?")){

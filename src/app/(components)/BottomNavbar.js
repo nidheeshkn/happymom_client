@@ -54,7 +54,7 @@ function BottomNavbar() {
           url={`https://happymom.com.in/registration?referee=${link}`}
           title={`Hi i would like to invite you to join happymom. Please click the link below and register \n`}
         >
-          <a className="font-bold text-sm text-white">Share</a>
+          <span className="font-bold text-sm text-white">Share</span>
         </WhatsappShareButton>
    </>
   )

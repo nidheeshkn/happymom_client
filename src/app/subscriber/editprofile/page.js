@@ -106,7 +106,7 @@ function page() {
         setTimeout(() => {
           setToast(false);
         }, 5000);
-
+        location.href = "/subscriber/userprofile";
       }
     } catch (error) {
       setToastText("Failed to update details...")
