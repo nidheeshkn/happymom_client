@@ -42,7 +42,7 @@ export default function Home() {
           Make Your Parenting A Success
         </h1>
 
-        <Image src={hook} className="w-[16rem] h-[40vh]" />
+        <Image alt="Happymom" src={hook} className="w-[16rem] h-[40vh]" />
       </div>
 
       <div>
@@ -51,33 +51,33 @@ export default function Home() {
         <div className="flex flex-col px-10 ">
           <div className="flex flex-col justify-center items-center">
             <div className="w-full h-[46vh] bg-[#64FFD1] rounded-md mt-5 flex justify-center items-end">
-              <Image src={first} className="w-[16rem] h-[40vh]" />
+              <Image alt="Infants" src={first} className="w-[16rem] h-[40vh]" />
             </div>
 
             <span className="text-lg font-semibold my-5">0 - 2 Years</span>
           </div>
           <div className="flex flex-col justify-center items-center">
             <div className="w-full h-[46vh] bg-[#53FF98] rounded-md  flex justify-center items-end">
-              <Image src={sec} className="w-[16rem] h-[40vh]" />
+              <Image alt="Toadler"  src={sec} className="w-[16rem] h-[40vh]" />
             </div>
             <span className="text-lg font-semibold my-5">3 - 6 Years</span>
           </div>  
           <div className="flex flex-col justify-center items-center">
           <div className="w-full h-[46vh] bg-[#63FFFF] rounded-md  flex justify-center items-end">
-            <Image src={third} className="w-[16rem] h-[40vh]" />
+            <Image alt="Scholars" src={third} className="w-[16rem] h-[40vh]" />
           </div>
           <span className="text-lg font-semibold my-5">6 - 12 Years</span>
           
           </div>
           <div className="flex flex-col justify-center items-center">
             <div className="w-full h-[46vh] bg-[#53FF98] rounded-md  flex justify-center items-end">
-              <Image src={teen} className="w-[13rem] h-[35vh]" />
+              <Image alt="Teens" src={teen} className="w-[13rem] h-[35vh]" />
             </div>
             <span className="text-lg font-semibold my-5">13 - 19 Years</span>
           </div>
           <div className="flex flex-col justify-center items-center">
             <div className="w-full h-[46vh] bg-[#64FFD1] rounded-md  flex justify-center items-end">
-              <Image src={parenting} className="w-[13rem] h-[35vh]" />
+              <Image alt="Youngster" src={parenting} className="w-[13rem] h-[35vh]" />
             </div>
 
             <span className="text-lg font-semibold my-5">60 + Years</span>

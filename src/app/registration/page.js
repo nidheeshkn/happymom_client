@@ -25,6 +25,9 @@ function Registration() {
 
   const emailRef = useRef("");
 
+  const nameRef = useRef("");
+
+
   const [finalErr, setFinalErr] = useState({ finalErr: false, message: "" });
   useEffect(() => {
     (async function () {
@@ -105,26 +108,17 @@ function Registration() {
             onChange={(e) => {
               const password = e.target.value;
 
-              const confirm_password = confirmRef.current.value
-              if(confirm_password != password) {
-                  
-                  
-                  
-                setConfPasswordErr(true)
-              }
-              else{
-                setConfPasswordErr(false)
+              const confirm_password = confirmRef.current.value;
+              if (confirm_password != password) {
+                setConfPasswordErr(true);
+              } else {
+                setConfPasswordErr(false);
               }
               if (password.length < 5) {
                 setPasswordErr(true);
-                
-                 
-                
               } else {
                 setPasswordErr(false);
               }
-
-              
             }}
           />
 
@@ -153,10 +147,22 @@ function Registration() {
           )}
 
           <input
+           ref={nameRef}
+            placeholder="Name"
+            type="text"
+            className="placeholder:text-black placeholder:font-semibold px-3  focus:outline-blue-400 rounded-md border-2 border-black w-full py-2 mt-5 "
+            onChange={(e)=>{
+              const name=e.target.value;
+            }}
+          />
+          <input
             ref={emailRef}
             placeholder="Email"
             type="text"
             className="placeholder:text-black placeholder:font-semibold px-3  focus:outline-blue-400 rounded-md border-2 border-black w-full py-2 mt-5 "
+            onChange={(e)=>{
+              const email=e.target.value;
+            }}
           />
 
           {emailerr.emailerr && (
@@ -180,17 +186,15 @@ function Registration() {
                     defaultChecked
                     id="termscond"
                     onChange={(e) => {
-                      
-                      if(e.target.checked){
+                      if (e.target.checked) {
                         setFinalErr({
                           finalErr: false,
                           message: "",
                         });
-                      }
-                      else{
+                      } else {
                         setFinalErr({
                           finalErr: true,
-                          message: "Please agree to the terms and conditions"
+                          message: "Please agree to the terms and conditions",
                         });
                       }
                     }}
@@ -206,46 +210,23 @@ function Registration() {
             )}
           </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
           <button
-
-            className={ mobileerr || terms || passworderr || finalErr.finalErr || confpassworderr  ? "font-semibold py-3 rounded-lg text-white  w-full my-3 bg-slate-300" : "font-semibold py-3 rounded-lg text-white bg-blue-400 w-full my-3"}
-          
-           
-            
-
-
-
-          
-
-
-
-disabled = {mobileerr || passworderr || confpassworderr || terms || finalErr.finalErr }
+            className={
+              mobileerr ||
+              terms ||
+              passworderr ||
+              finalErr.finalErr ||
+              confpassworderr
+                ? "font-semibold py-3 rounded-lg text-white  w-full my-3 bg-slate-300"
+                : "font-semibold py-3 rounded-lg text-white bg-blue-400 w-full my-3"
+            }
+            disabled={
+              mobileerr ||
+              passworderr ||
+              confpassworderr ||
+              terms ||
+              finalErr.finalErr
+            }
             onClick={() => {
               const checkbox = document.getElementById("termscond").checked;
               // console.log(checkbox)
@@ -255,7 +236,9 @@ disabled = {mobileerr || passworderr || confpassworderr || terms || finalErr.fin
                 const mobile_num = mobileRef.current.value;
                 const password = passwordRef.current.value;
                 const conf = confirmRef.current.value;
+                const name = nameRef.current.value;
                 const email = emailRef.current.value;
+
                 if (email.length > 1) {
                   if (password && conf && password === conf) {
                     (async () => {
@@ -264,8 +247,8 @@ disabled = {mobileerr || passworderr || confpassworderr || terms || finalErr.fin
                           `${process.env.NEXT_PUBLIC_BASE_URL}/users/registration`,
                           {
                             mobile_number: mobile_num,
-
                             password,
+                            name,
                             email,
                             refference_id: link,
                           }

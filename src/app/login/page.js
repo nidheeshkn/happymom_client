@@ -54,7 +54,7 @@ function Registration() {
             placeholder="Mobile Number"
             className="py-3 px-3 my-5 focus:outline-blue-400 placeholder:text-black placeholder:font-semibold rounded-md border-2 border-black w-full"
             onChange={(e) => {
-              console.log(e.target.value);
+              // console.log(e.target.value);
               setUsername(e.target.value);
               setLoginErr(false);
             }}
@@ -65,14 +65,14 @@ function Registration() {
             type = {show === "view" ? "password":"text"}
             className="py-3 px-3 focus:outline-blue-400 mb-5 placeholder:text-black placeholder:font-semibold rounded-md border-2 border-black w-full"
             onChange={(e) => {
-              console.log(e.target.value);
+              // console.log(e.target.value);
 
               setPassword(e.target.value);
               setLoginErr(false);
             }}
           />
          
-          <Image src = {show === "view" ? view : hide} height = {25} width = {25} className="absolute right-5 top-3" onClick = {()=>{
+          <Image alt="View password" src = {show === "view" ? view : hide} height = {25} width = {25} className="absolute right-5 top-3" onClick = {()=>{
             if(show === "view"){
               setShow("hide")
             }
