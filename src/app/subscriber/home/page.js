@@ -86,7 +86,7 @@ function page() {
                   <Table className="w-full" aria-label="simple table">
                     <TableHead>
                       <TableRow>
-                      <TableCell>id</TableCell>
+                      {/* <TableCell>id</TableCell> */}
                         <TableCell>Name</TableCell>
                         <TableCell>Role</TableCell>
                       </TableRow>
@@ -99,7 +99,7 @@ function page() {
                             "&:last-child td, &:last-child th": { border: 0 },
                           }}
                         >
-                          <TableCell align="right">{row.subscriber_id}</TableCell>
+                          {/* <TableCell align="right">{row.subscriber_id}</TableCell> */}
                           {
                            users_data.subscriber_id === 10001?
                            <TableCell onClick={()=>{
