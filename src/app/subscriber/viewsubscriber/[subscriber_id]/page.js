@@ -4,7 +4,7 @@ import axios from "@/app/instance";
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -13,12 +13,16 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
-import chip from "../../../../public/chip.png";
+import chip from "../../../../../public/chip.png";
 
 import BottomNavbar from "@/app/(components)/BottomNavbar";
 import Ham from "@/app/(components)/Ham";
 function page() {
-  
+
+  const params=useParams();
+  console.log(params.subscriber_id);
+
+  // alert(params.subscriber_id)
   const [users_data, setUsersData] = useState({});
   const [subordinate_data, setSubordinateData] = useState([]);
   const [link, setLink] = useState("");
@@ -26,11 +30,11 @@ function page() {
   const router = useRouter();
   useEffect(() => {
     const token = sessionStorage.getItem("sls_token");
-    console.log(token);
+    // console.log(token);
     (async function () {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/subscriber/home`
+          `${process.env.NEXT_PUBLIC_BASE_URL}/subscriber/viewSubscriber`,{params}
         );
 
         // console.log(response.data);
@@ -86,7 +90,6 @@ function page() {
                   <Table className="w-full" aria-label="simple table">
                     <TableHead>
                       <TableRow>
-                      <TableCell>id</TableCell>
                         <TableCell>Name</TableCell>
                         <TableCell>Role</TableCell>
                       </TableRow>
@@ -99,7 +102,6 @@ function page() {
                             "&:last-child td, &:last-child th": { border: 0 },
                           }}
                         >
-                          <TableCell align="right">{row.subscriber_id}</TableCell>
                           {
                            users_data.subscriber_id === 10001?
                            <TableCell onClick={()=>{
@@ -114,21 +116,17 @@ function page() {
                           </TableCell>
 
                           }
-                          
                           <TableCell align="right">{row.position_id}</TableCell>
-                          
                         </TableRow>
                       ))}
                     </TableBody>
                   </Table>
                 </TableContainer>
-                
               </div>
             </div>
           </div>
         </div>
       </div>
-
 
       <div className="w-full h-16 bg-[#4F95FF] fixed z-10 bottom-0 flex justify-between items-center px-5">
         <BottomNavbar />
