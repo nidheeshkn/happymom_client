@@ -12,21 +12,18 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-
 import chip from "../../../../../public/chip.png";
 
 import BottomNavbar from "@/app/(components)/BottomNavbar";
 import Ham from "@/app/(components)/Ham";
 function page() {
+  const params = useParams();
+  // console.log(params.subscriber_id);
 
-  const params=useParams();
-  console.log(params.subscriber_id);
-
-  // alert(params.subscriber_id)
   const [users_data, setUsersData] = useState({});
+  const [subscriber_data, setSubscriberData] = useState({});
   const [subordinate_data, setSubordinateData] = useState([]);
   const [link, setLink] = useState("");
-  const [popup, setPopup] = useState(true);
   const router = useRouter();
   useEffect(() => {
     const token = sessionStorage.getItem("sls_token");
@@ -34,19 +31,19 @@ function page() {
     (async function () {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/subscriber/viewSubscriber`,{params}
+          `${process.env.NEXT_PUBLIC_BASE_URL}/subscriber/viewSubscriber`,
+          { params }
         );
 
-        // console.log(response.data);
-        // console.log(response.data.subordinate_data)
-        let results = JSON.parse(JSON.stringify(response.data.subscriber_data));
-        let linkfromjs = JSON.parse(
-          JSON.stringify(response.data.user_data.link)
+        let result_user = JSON.parse(JSON.stringify(response.data.user_data));
+        setUsersData({ ...result_user });
+        let result_subscriber = JSON.parse(
+          JSON.stringify(response.data.subscriber_data)
         );
-        setLink(linkfromjs);
-        // console.log([...response.data.subordinate_data], "results");
-        setUsersData({ ...results });
+        setSubscriberData({ ...result_subscriber });
+
         setSubordinateData([...response.data.subordinate_data]);
+        // console.log(users_data);
       } catch (err) {
         console.log(err);
       }
@@ -65,18 +62,18 @@ function page() {
               <Image src={chip} className="w-10 h-10" alt="logo" />
 
               <h4 className="text-[#C6C6C6] font-semibold ">
-                {users_data.subscriber_id}
+                {subscriber_data.subscriber_id}
               </h4>
             </div>
 
             <div className="flex  h-10 justify-between items-center">
               <h4 className=" text-[#C6C6C6] font-semibold textshadow">
-                {users_data.name}
+                {subscriber_data.name}
               </h4>
 
               <div className="flex flex-col  items-center text-[#C6C6C6] text-sm font-semibold ">
                 <h6 className="textshadow">Valid Till</h6>
-                <h6 className="textshadow">31-05-2024</h6>
+                <h6 className="textshadow">{subscriber_data.validity_date}</h6>
               </div>
             </div>
           </div>
@@ -102,20 +99,23 @@ function page() {
                             "&:last-child td, &:last-child th": { border: 0 },
                           }}
                         >
-                          {
-                           users_data.subscriber_id === 10001?
-                           <TableCell onClick={()=>{
-                            router.push(`/subscriber/viewsubscriber/${row.subscriber_id}`);
-                         
-                          }} component="th" scope="row">
-                            {row.name}
-                          </TableCell>
-                          :
-                          <TableCell component="th" scope="row">
-                            {row.name}
-                          </TableCell>
-
-                          }
+                          {users_data.id === 10001 ? (
+                            <TableCell
+                              onClick={() => {
+                                router.push(
+                                  `/subscriber/viewsubscriber/${row.subscriber_id}`
+                                );
+                              }}
+                              component="th"
+                              scope="row"
+                            >
+                              {row.name}
+                            </TableCell>
+                          ) : (
+                            <TableCell component="th" scope="row">
+                              {row.name}
+                            </TableCell>
+                          )}
                           <TableCell align="right">{row.position_id}</TableCell>
                         </TableRow>
                       ))}

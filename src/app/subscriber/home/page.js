@@ -20,6 +20,7 @@ import Ham from "@/app/(components)/Ham";
 function page() {
   
   const [users_data, setUsersData] = useState({});
+  const [subscriber_data, setSubscriberData] = useState({});
   const [subordinate_data, setSubordinateData] = useState([]);
   const [link, setLink] = useState("");
   const [popup, setPopup] = useState(true);
@@ -33,16 +34,15 @@ function page() {
           `${process.env.NEXT_PUBLIC_BASE_URL}/subscriber/home`
         );
 
-        // console.log(response.data);
-        // console.log(response.data.subordinate_data)
-        let results = JSON.parse(JSON.stringify(response.data.subscriber_data));
-        let linkfromjs = JSON.parse(
-          JSON.stringify(response.data.user_data.link)
+        let result_user = JSON.parse(JSON.stringify(response.data.user_data));
+        setUsersData({ ...result_user });
+        let result_subscriber = JSON.parse(
+          JSON.stringify(response.data.subscriber_data)
         );
-        setLink(linkfromjs);
-        // console.log([...response.data.subordinate_data], "results");
-        setUsersData({ ...results });
+        setSubscriberData({ ...result_subscriber });
+
         setSubordinateData([...response.data.subordinate_data]);
+        // console.log(users_data);
       } catch (err) {
         console.log(err);
       }
@@ -61,18 +61,18 @@ function page() {
               <Image src={chip} className="w-10 h-10" alt="logo" />
 
               <h4 className="text-[#C6C6C6] font-semibold ">
-                {users_data.subscriber_id}
+                {subscriber_data.subscriber_id}
               </h4>
             </div>
 
             <div className="flex  h-10 justify-between items-center">
               <h4 className=" text-[#C6C6C6] font-semibold textshadow">
-                {users_data.name}
+                {subscriber_data.name}
               </h4>
 
               <div className="flex flex-col  items-center text-[#C6C6C6] text-sm font-semibold ">
                 <h6 className="textshadow">Valid Till</h6>
-                <h6 className="textshadow">31-05-2024</h6>
+                <h6 className="textshadow">{subscriber_data.validity_date}</h6>
               </div>
             </div>
           </div>
@@ -101,7 +101,7 @@ function page() {
                         >
                           {/* <TableCell align="right">{row.subscriber_id}</TableCell> */}
                           {
-                           users_data.subscriber_id === 10001?
+                           users_data.id === 10001?
                            <TableCell onClick={()=>{
                             router.push(`/subscriber/viewsubscriber/${row.subscriber_id}`);
                          

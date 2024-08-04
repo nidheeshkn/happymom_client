@@ -13,7 +13,7 @@ function BottomNavbar() {
         const response = await axios.get(
           `${process.env.NEXT_PUBLIC_BASE_URL}/user`
         );
-        console.log(response.data,"inside ");
+        // console.log(response.data,"inside ");
         setLink(response.data.link);
         
       } catch (err) {
