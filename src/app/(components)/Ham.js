@@ -44,7 +44,8 @@ function Ham() {
             <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
               {user.id === 10001 ? (
                 <li>
-                  <a href="/subscriber/searchSubscriber">Search Subscriber</a>
+                  {/* <a href="/subscriber/searchSubscriber">Search Subscriber</a> */}
+                  <a >Search Subscriber</a>
                 </li>
               ) : (
                 <></>
