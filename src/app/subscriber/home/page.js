@@ -18,13 +18,14 @@ import chip from "../../../../public/chip.png";
 import BottomNavbar from "@/app/(components)/BottomNavbar";
 import Ham from "@/app/(components)/Ham";
 function page() {
-  
   const [users_data, setUsersData] = useState({});
   const [subscriber_data, setSubscriberData] = useState({});
   const [subordinate_data, setSubordinateData] = useState([]);
   const [link, setLink] = useState("");
   const [popup, setPopup] = useState(true);
   const router = useRouter();
+
+  let sub_name;
   useEffect(() => {
     const token = sessionStorage.getItem("sls_token");
     // console.log(token);
@@ -86,49 +87,55 @@ function page() {
                   <Table className="w-full" aria-label="simple table">
                     <TableHead>
                       <TableRow>
-                      {/* <TableCell>id</TableCell> */}
+                        {/* <TableCell>id</TableCell> */}
                         <TableCell>Name</TableCell>
                         <TableCell>Role</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {subordinate_data.map((row) => (
-                        <TableRow
-                          key={row.subscriber_id}
-                          sx={{
-                            "&:last-child td, &:last-child th": { border: 0 },
-                          }}
-                        >
-                          {/* <TableCell align="right">{row.subscriber_id}</TableCell> */}
-                          {
-                           users_data.id === 10001?
-                           <TableCell onClick={()=>{
-                            router.push(`/subscriber/viewsubscriber/${row.subscriber_id}`);
-                         
-                          }} component="th" scope="row">
-                            {row.name}
-                          </TableCell>
-                          :
-                          <TableCell component="th" scope="row">
-                            {row.name}
-                          </TableCell>
+                      {subordinate_data.map((row) => {
+                        // Preprocess row.name to use subscriber_id if name is blank
+                        const displayName =
+                          row.name === null ? row.subscriber_id : row.name;
 
-                          }
-                          
-                          <TableCell align="right">{row.position_id}</TableCell>
-                          
-                        </TableRow>
-                      ))}
+                        return (
+                          <TableRow
+                            key={row.subscriber_id}
+                            sx={{
+                              "&:last-child td, &:last-child th": { border: 0 },
+                            }}
+                          >
+                            {users_data.id === 10001 ? (
+                              <TableCell
+                                onClick={() => {
+                                  router.push(
+                                    `/subscriber/viewsubscriber/${row.subscriber_id}`
+                                  );
+                                }}
+                                component="th"
+                                scope="row"
+                              >
+                                {displayName}
+                              </TableCell>
+                            ) : (
+                              <TableCell component="th" scope="row">
+                                {displayName}
+                              </TableCell>
+                            )}
+                            <TableCell align="right">
+                              {row.position_id}
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
                     </TableBody>
                   </Table>
                 </TableContainer>
-                
               </div>
             </div>
           </div>
         </div>
       </div>
-
 
       <div className="w-full h-16 bg-[#4F95FF] fixed z-10 bottom-0 flex justify-between items-center px-5">
         <BottomNavbar />
