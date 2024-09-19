@@ -27,6 +27,8 @@ function page() {
   const router = useRouter();
   useEffect(() => {
     const token = sessionStorage.getItem("sls_token");
+
+    
     // console.log(token);
     (async function () {
       try {

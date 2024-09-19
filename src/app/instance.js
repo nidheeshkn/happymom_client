@@ -8,18 +8,22 @@ const axiosInstance = axios.create({
 
 // Add a request interceptor
 axiosInstance.interceptors.request.use(
-  function (config) {
+  config=> {
   
    
     const token = sessionStorage.getItem('sls_token');
-    
+
+    console.log(token);
     // If token exists, add it to the request headers
-    console.log(config,"config")
-    console.log(location.href,location.href.includes("registration"));
+    console.log(config,"config");
+    // console.log(location.href,location.href.includes("registration"));
     if (token ) {
       config.headers.Authorization = `Bearer ${token}`;
+    console.log(config,"config");
+
     }
 
+    
     else{
         console.log("login", location.href);
       if (location.href.includes("registration") || location.href.includes("resetpassword") || location.href.includes("readrequest")) {
