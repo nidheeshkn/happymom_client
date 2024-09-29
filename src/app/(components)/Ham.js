@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import axios from "@/app/instance";
+import axios from "@/src/app/instance";
 
 function Ham() {
   const router = useRouter();

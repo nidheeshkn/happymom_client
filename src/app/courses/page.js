@@ -17,7 +17,7 @@ import city from "../../../public/mindful.png";
 import couples from "../../../public/couples.png";
 
 import ta from "../../../public/ta.png";
-import BottomNavbar from "@/app/(components)/BottomNavbar";
+import BottomNavbar from "@/src/app/(components)/BottomNavbar";
 
 import Image from "next/image";
 

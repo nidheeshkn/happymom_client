@@ -2,7 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { WhatsappShareButton } from "react-share";
 import { usePathname, useRouter } from "next/navigation";
-import axios from "@/app/instance";
+
+import axios from "@/src/app/instance";
 
 function BottomNavbar() {
   const [link, setLink] = useState("");

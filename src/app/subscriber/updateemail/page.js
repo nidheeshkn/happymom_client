@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import axios from "@/app/instance"
-import Ham from "@/app/(components)/Ham";
+import axios from "@/src/app/instance"
+import Ham from "@/src/app/(components)/Ham";
 import { useRouter } from "next/navigation";
 
 

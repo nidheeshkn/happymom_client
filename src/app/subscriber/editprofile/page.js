@@ -1,10 +1,10 @@
 "use client";
 
-import axios from "@/app/instance";
+import axios from "@/src/app/instance";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import TextField from "@mui/material/TextField";
-import Ham from "@/app/(components)/Ham";
+import Ham from "@/src/app/(components)/Ham";
 
 function page() {
   const [data,setData] = useState({});

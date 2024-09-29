@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import axios from "@/app/instance"
+import axios from "@/src/app/instance"
 
 
 function ResetPassword() {

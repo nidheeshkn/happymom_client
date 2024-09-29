@@ -1,6 +1,6 @@
 "use client";
 
-import axios from "@/app/instance";
+import axios from "@/src/app/instance";
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
@@ -15,8 +15,8 @@ import Paper from "@mui/material/Paper";
 
 import chip from "../../../../public/chip.png";
 
-import BottomNavbar from "@/app/(components)/BottomNavbar";
-import Ham from "@/app/(components)/Ham";
+import BottomNavbar from "@/src/app/(components)/BottomNavbar";
+import Ham from "@/src/app/(components)/Ham";
 function page() {
   const [users_data, setUsersData] = useState({});
   const [subscriber_data, setSubscriberData] = useState({});
@@ -52,11 +52,12 @@ function page() {
   return (
     <div className="w-full min-h-screen  overflow-y-scroll">
       <Ham />
+
       <div className="">
         <div className="w-90 flex justify-center items-center mt-[2rem]">
           <div className="w-full  flex flex-col justify-center h-[30vh] bg-[#3C3C3C] rounded-md px-5">
             <h2 className="mt-3 text-[#C6C6C6] font-semibold  drop-shadow-2xl ">
-              Happymom
+            happymom.com.in
             </h2>
             <div className="mt-5">
               <Image src={chip} className="w-10 h-10" alt="logo" />

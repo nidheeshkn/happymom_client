@@ -1,10 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import axios from "@/app/instance";
+import axios from "@/src/app/instance";
 import Image from "next/image";
 import chip from "../../../../public/chip.png";
-import BottomNavbar from "@/app/(components)/BottomNavbar";
-import Ham from "@/app/(components)/Ham";
+import BottomNavbar from "@/src/app/(components)/BottomNavbar";
+import Ham from "@/src/app/(components)/Ham";
 
 function SearchSubscriber() {
   const [subscribersData, setSubscribersData] = useState([]);

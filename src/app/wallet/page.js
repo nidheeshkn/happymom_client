@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import axios from "@/app/instance";
+import axios from "@/src/app/instance";
 
 import { useRouter } from "next/navigation";
 import Table from "@mui/material/Table";
@@ -11,7 +11,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
-import BottomNavbar from "@/app/(components)/BottomNavbar";
+import BottomNavbar from "@/src/app/(components)/BottomNavbar";
 import Ham from "../(components)/Ham";
 
 function Wallet() {
