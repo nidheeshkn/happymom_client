@@ -26,7 +26,7 @@ import couples from "../../../public/couples.png";
 
 
 import ta from '../../../public/ta.png'
-import BottomNavbar from "@/app/(components)/BottomNavbar";
+import BottomNavbar from "@/src/app/(components)/BottomNavbar";
 
 import Image from "next/image";
 
@@ -68,7 +68,7 @@ function Courses() {
               <div></div>
 
               <div className="flex justify-between items-center px-3 rounded-md" onClick={()=>{
-                
+
 
                 router.push(" https://mwpfn.on-app.in/app/oc/253120/mwpfn?utm_source%3Dwhatsapp%26utm_medium%3Dtutor-course-referral-wa%26utm_campaign%3Dcourse-overview-app")
               }}>
@@ -87,7 +87,7 @@ function Courses() {
               <div></div>
 
               <div className="flex justify-between items-center px-3 rounded-md" onClick={()=>{
-                
+
 
                 router.push("https://mwpfn.on-app.in/app/oc/205006/mwpfn?utm_source%3Dwhatsapp%26utm_medium%3Dtutor-course-referral-wa%26utm_campaign%3Dcourse-overview-app")
               }}>
@@ -105,7 +105,7 @@ function Courses() {
               <div></div>
 
               <div className="flex justify-between items-center px-3 rounded-md" onClick={()=>{
-                
+
 
                 router.push("https://mwpfn.on-app.in/app/oc/216530/mwpfn?utm_source%3Dwhatsapp%26utm_medium%3Dtutor-course-referral-wa%26utm_campaign%3Dcourse-overview-app")
               }}>
@@ -125,7 +125,7 @@ function Courses() {
               <div></div>
 
               <div className="flex justify-between items-center px-3 rounded-md" onClick={()=>{
-                
+
 
                 router.push("https://mwpfn.on-app.in/app/oc/457782/mwpfn?utm_source%3Dwhatsapp%26utm_medium%3Dtutor-course-referral-wa%26utm_campaign%3Dcourse-overview-app")
               }}>
@@ -141,11 +141,11 @@ function Courses() {
             </div>
 
 
-            
 
 
 
-          
+
+
             {/* <div className="w-full h-36 bg-blue-400 flex flex-col justify-center text-white text-xl mt-5 rounded-md">
               <div></div>
 
@@ -167,7 +167,7 @@ function Courses() {
               <div></div>
 
               <div className="flex justify-between items-center px-3 rounded-md" onClick={()=>{
-                
+
 
                 router.push("https://mwpfn.on-app.in/app/oc/234365/mwpfn?utm_source%3Dwhatsapp%26utm_medium%3Dtutor-course-referral-wa%26utm_campaign%3Dcourse-overview-app")
               }}>
@@ -185,7 +185,7 @@ function Courses() {
               <div></div>
 
               <div className="flex justify-between items-center px-3 rounded-md" onClick={()=>{
-                
+
 
                 router.push("https://mwpfn.on-app.in/app/oc/208923/mwpfn?utm_source%3Dwhatsapp%26utm_medium%3Dtutor-course-referral-wa%26utm_campaign%3Dcourse-overview-app")
               }}>
@@ -202,7 +202,7 @@ function Courses() {
               <div></div>
 
               <div className="flex justify-between items-center px-3 rounded-md" onClick={()=>{
-                
+
 
                 router.push("https://mwpfn.on-app.in/app/oc/207244/mwpfn?utm_source%3Dwhatsapp%26utm_medium%3Dtutor-course-referral-wa%26utm_campaign%3Dcourse-overview-app")
               }}>
@@ -222,7 +222,7 @@ function Courses() {
               <div></div>
 
               <div className="flex justify-between items-center px-3 rounded-md" onClick={()=>{
-                
+
 
                 router.push("https://mwpfn.on-app.in/app/oc/198305/mwpfn?utm_source%3Dwhatsapp%26utm_medium%3Dtutor-course-referral-wa%26utm_campaign%3Dcourse-overview-app")
               }}>
@@ -243,7 +243,7 @@ function Courses() {
               <div></div>
 
               <div className="flex justify-between items-center px-3 rounded-md" onClick={()=>{
-                
+
 
                 setPayment(true)
               }}>
@@ -262,7 +262,7 @@ function Courses() {
               <div></div>
 
               <div className="flex justify-between items-center px-3 rounded-md" onClick={()=>{
-                
+
 
                 router.push("ttps://mwpfn.on-app.in/app/oc/198305/mwpfn?utm_source%3Dwhatsapp%26utm_medium%3Dtutor-course-referral-wa%26utm_campaign%3Dcourse-overview-app")
               }}>
