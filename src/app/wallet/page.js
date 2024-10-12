@@ -75,13 +75,13 @@ function Wallet() {
               <div className="inline-block min-w-full py-2">
                 {wallet.length > 0 && (
                   <div className="overflow-x-auto">
-                    <table className="table">
+                    <table className="table w-full">
                       {/* head */}
                       <thead>
                         <tr>
-                          <th>Description</th>
+                          <th className="w-52">Description</th>
                           <th className=" p-1 w-32">Date</th>
-                          <th>Amount</th>
+                          <th className="w-16">Amount</th>
                         </tr>
                       </thead>
                       <tbody>
