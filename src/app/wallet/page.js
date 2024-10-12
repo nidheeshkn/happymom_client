@@ -1,18 +1,11 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import axios from "@/src/app/instance";
 
-import { useRouter } from "next/navigation";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 
+import Ham from "@/src/app/(components)/Ham";
 import BottomNavbar from "@/src/app/(components)/BottomNavbar";
-import Ham from "../(components)/Ham";
 
 function Wallet() {
   const [wallet, setWallet] = useState([]);
@@ -46,79 +39,83 @@ function Wallet() {
   }, []);
 
   return (
-    <div className="max-w-[100%] overflow-hidden">
-      <div>
-        <Ham />
-      </div>
-      <div className="w-full flex justify-center pt-3  bg-white">
-        <span className="text-xl font-semibold   "> Wallet</span>
-      </div>
-      <div>
-        <div className="flex justify-center items-center text-sm">
-          <div className="w-[90vw] sm:w-[90vw] fixed top-24 bg-[#1EA1DA] h-[9rem] px-5 rounded-lg">
-            <div className="flex flex-col justify-center py-3">
-              <div className="mt-1 text-[1rem] text-white font-semibold">
-                {Number(userwallet.wallet_balance).toFixed(2)} ₹
-              </div>
+    <div className="w-full min-h-screen  overflow-y-scroll justify-center">
+      <Ham/>
+      <div className=" p-2">
+        {userwallet ? (
+          <>
+            <div className="w-90 flex justify-center items-center mt-[2rem]">
+              <div className="w-full  flex flex-col justify-center h-[28vh] bg-blue-500 rounded-md px-5">
+                <div className="mt-1 text-[1rem] text-white font-semibold">
+                  {Number(userwallet.wallet_balance).toFixed(2)} ₹
+                </div>
 
-              <div className="text-white text-sm">Gross Balance</div>
-              <div className="mt-1 text-[1rem] text-white font-semibold">
-                {Number(userwallet.wallet_balance).toFixed(2)} ₹
-              </div>
+                <div className="text-white text-sm">Gross Balance</div>
+                <div className="mt-1 text-[1rem] text-white font-semibold">
+                  {Number(userwallet.wallet_balance).toFixed(2)} ₹
+                </div>
 
-              <div className="text-white text-sm">Total Balance</div>
-              <div className="mt-1 text-[1rem] text-white font-semibold">
-                {Number(userwallet.wallet_balance).toFixed(2)} ₹
-              </div>
+                <div className="text-white text-sm">Total Balance</div>
+                <div className="mt-1 text-[1rem] text-white font-semibold">
+                  {Number(userwallet.wallet_balance).toFixed(2)} ₹
+                </div>
 
-              <div className="text-white ">Redeemable</div>
+                <div className="text-white ">Redeemable</div>
+              </div>
+            </div>
+          </>
+        ) : (
+          <></>
+        )}
+        <div className="">
+          {wallet ? <>{console.log(wallet)}</> : <></>}
+
+          <div className="flex flex-col overflow-y-scroll">
+            <div className="overflow-x-hidden max-h-[45vh]">
+              <div className="inline-block min-w-full py-2">
+                {wallet.length > 0 && (
+                  <div className="overflow-x-auto">
+                    <table className="table">
+                      {/* head */}
+                      <thead>
+                        <tr>
+                          <th>Description</th>
+                          <th className=" p-1 w-32">Date</th>
+                          <th>Amount</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {wallet.map((row) => (
+                          <tr key={row.description}>
+                            <td>
+                              <div className="flex items-center gap-3">
+                              {row.description}
+                              </div>
+                            </td>
+                            <td className=" p-1">{row.createdAt.split("T")[0]}</td>
+                            <td> {row.credit}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                      {/* foot */}
+                      <tfoot>
+                        <tr>
+                        <th>Description</th>
+                          <th className=" p-1 w-32">Date</th>
+                          <th>Amount</th>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="fixed flex flex-col max-w-full  min-w-full  max-h-[42vh]   overflow-y-scroll  top-64 ">
-          <div className="overflow-x-hidden  sm:-mx-6 lg:-mx-8">
-            <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-              <div className="">
-                <TableContainer component={Paper}>
-                  <Table className="w-full" aria-label="simple table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Description</TableCell>
-                        <TableCell>Date</TableCell>
-                        <TableCell>Amount</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {wallet.map((row) => (
-                        <TableRow
-                          key={row.description}
-                          sx={{
-                            "&:last-child td, &:last-child th": { border: 0 },
-                          }}
-                        >
-                          <TableCell component="th" scope="row">
-                            {row.description}
-                          </TableCell>
-                          <TableCell component="th" scope="row">
-                            {row.createdAt.split("T")[0]}
-                          </TableCell>
-                          <TableCell component="th" scope="row">
-                            {row.credit}
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </div>
-            </div>
-          </div>
+        <div className="w-full h-16 bg-[#4F95FF] fixed z-10 bottom-0 flex justify-between items-center px-5">
+          <BottomNavbar />
         </div>
-      </div>
-
-      <div className="w-full h-16 bg-[#4F95FF] fixed z-10 bottom-0 flex justify-between items-center px-5">
-        <BottomNavbar />
       </div>
     </div>
   );
