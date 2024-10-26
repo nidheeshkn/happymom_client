@@ -98,7 +98,7 @@ function Incentive() {
                         <th>SL</th>
                         <th>Name</th>
                         <th>Description</th>
-                        <th></th>
+                        <th>&nbsp;</th>
                         </>
                       </tr>
                     </thead>

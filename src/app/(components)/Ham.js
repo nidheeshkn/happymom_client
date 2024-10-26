@@ -40,22 +40,10 @@ function Ham() {
               htmlFor="my-drawer-4"
               aria-label="close sidebar"
               className="drawer-overlay"
-            ></label>
+            >
+            </label>
             <ul className="menu p-4 w-72 min-h-full bg-base-200 text-base-content">
-              {user.id === 10001 ? (
-                <>
-                  <li>
-                    {/* <a href="/subscriber/searchSubscriber">Search Subscriber</a> */}
-                    <a>Search Subscriber</a>
-                  </li>
-
-                  <li>
-                    <a href="/Admin/incentives">Incentives</a>
-                  </li>
-                </>
-              ) : (
-                <></>
-              )}
+             
 
               <li className="">
                 <a>My Courses</a>
@@ -80,7 +68,29 @@ function Ham() {
                   Logout
                 </a>
               </li>
+
+              {user.id === 10001 ? (
+                <>
+                 <li className="  bg-red-400">
+                    Administrator
+                  </li>
+                  <li>
+                    {/* <a href="/subscriber/searchSubscriber">Search Subscriber</a> */}
+                    <a>Search Subscriber</a>
+                  </li>
+
+                  <li>
+                    <a href="/Admin/incentives">Incentives</a>
+                  </li>
+                  <li>
+                    <a href="/Admin/positions">Positions</a>
+                  </li>
+                </>
+              ) : (
+                <></>
+              )}
             </ul>
+            
           </div>
         </div>
       </div>

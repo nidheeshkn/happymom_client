@@ -1,35 +1,36 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import axios from "@/src/app/instance";
-import Image from "next/image";
-import editbtn from "@/public/edit.png";
 import Ham from "../../(components)/Ham";
 import BottomNavbar from "../../(components)/BottomNavbar";
 
-function Position() {
-  const [positionData, setPositionData] = useState([]);
+function Positions() {
+  const controller = "positions";
+  const [tableData, setTableData] = useState([]);
   const [formData, setFormData] = useState({
+    position_id: "",
     position_name: "",
     position_rank: "",
-    total_subscribers: "",
+    gross_wallet: "",
   });
+  const [isEditing, setIsEditing] = useState(false); // State to track editing mode
 
   useEffect(() => {
-    const fetchPositionData = async () => {
-      try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/positions/getall`
-        );
-        const results = response.data;
-        console.log(results);
-        setPositionData(results);
-      } catch (error) {
-        console.error("Error fetching position data:", error);
-      }
-    };
-
-    fetchPositionData();
+    fetchData();
   }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/${controller}/getall`
+      );
+      const results = response.data;
+      console.log(results);
+      setTableData(results);
+    } catch (error) {
+      console.error("Error fetching incentive data:", error);
+    }
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -39,33 +40,47 @@ function Position() {
     });
   };
 
+  const handleEdit = (row) => {
+    setFormData({ ...row }); // Set form data to the copied row
+    setIsEditing(true); // Switch to editing mode
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Send form data as JSON
-      await axios.post(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/positions/add`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+      if (isEditing) {
+        await axios.post(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/${controller}/update`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+      } else {
+        await axios.post(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/${controller}/add`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+      }
 
       // Clear form and refetch data
       setFormData({
+        position_id: "",
         position_name: "",
         position_rank: "",
-        total_subscribers: "",
+        gross_wallet: "",
       });
-      
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/positions/getall`
-      );
-      setPositionData(response.data);
+      setIsEditing(false); // Reset editing state
+      fetchData();
     } catch (error) {
-      console.error("Error adding position:", error);
+      console.error("Error adding/updating incentive:", error);
     }
   };
 
@@ -73,31 +88,31 @@ function Position() {
     <>
       <div className="w-full min-h-screen overflow-y-scroll">
         <Ham />
-        <div className="flex flex-col overflow-y-scroll">
-          <div className="overflow-x-hidden max-h-[45vh]">
+        <div className="flex flex-col overflow-y-scroll text-3xl">
+          <div className="overflow-x-hidden max-h-[95vh]">
             <div className="inline-block min-w-full py-2">
               <div className="overflow-x-auto">
                 <form onSubmit={handleSubmit}>
-                  <table className="table table-xs table-pin-rows table-pin-cols text-center text-xs">
+                  <table className="table table-pin-rows table-pin-cols text-center text-xs">
                     <thead>
-                      <tr>
-                        <th>SL</th>
-                        <td>Position</td>
-                        <td>Rank</td>
-                        <td>Gross Wallet</td>
-                        <th></th>
+                      <tr className=" pl-4 pr-4 ">
+                        <th className=" pl-4 pr-4 ">SL</th>
+                        <th >Name</th>
+                        <th className=" pl-4 pr-4 ">Rank</th>
+                        <th>Gross Wallet</th>
+                        <th>&nbsp;</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <th>1</th>
+                        <td className=" pl-4 pr-4 "></td>
                         <td>
                           <input
                             type="text"
                             name="position_name"
                             value={formData.position_name}
                             onChange={handleInputChange}
-                            placeholder="position"
+                            placeholder="Name"
                             className="input input-bordered input-accent w-full max-w-xs p-1 text-center"
                           />
                         </td>
@@ -107,44 +122,52 @@ function Position() {
                             name="position_rank"
                             value={formData.position_rank}
                             onChange={handleInputChange}
-                            placeholder="rank"
+                            placeholder="Rank"
                             className="input input-bordered input-accent w-full max-w-xs p-1 text-center"
                           />
                         </td>
                         <td>
                           <input
                             type="text"
-                            name="total_subscribers"
-                            value={formData.total_subscribers}
+                            name="gross_wallet"
+                            value={formData.gross_wallet}
                             onChange={handleInputChange}
                             placeholder="Amount"
                             className="input input-bordered input-accent w-full max-w-xs p-1 text-center"
                           />
                         </td>
                         <td>
-                          <button type="submit" className="btn btn-outline btn-accent">
-                            Add
+                          <button
+                            type="submit"
+                            className="btn btn-outline btn-accent"
+                          >
+                            {isEditing ? "Update" : "Add"}
                           </button>
                         </td>
                       </tr>
-                      {positionData.map((position) => (
-                        <tr key={position.position_id} className="bg-red-300 text-white">
-                          <td>{position.position_id}</td>
-                          <td>{position.position_name}</td>
-                          <td>{position.position_rank}</td>
-                          <td>{position.total_subscribers}</td>
+                      {tableData.map((row, index) => (
+                        <tr key={row.position_id}>
+                          <td>{index + 1}</td> {/* Displaying index as SL */}
+                          <td>{row.position_name}</td>
+                          <td>{row.position_rank}</td>
+                          <td>{row.gross_wallet}</td>
                           <td>
-                            <Image src={editbtn} width={16} height={16} alt="Edit" />
+                            <span
+                              onClick={() => handleEdit(row)}
+                              className="btn btn-outline btn-accent"
+                            >
+                              Edit
+                            </span>
                           </td>
                         </tr>
                       ))}
                     </tbody>
                     <tfoot>
                       <tr>
-                        <th>SL</th>
-                        <td>Position</td>
-                        <td>Rank</td>
-                        <td>Gross Wallet</td>
+                      <th>SL</th>
+                        <th>Name</th>
+                        <th>Rank</th>
+                        <th>Gross Wallet</th>
                         <th></th>
                       </tr>
                     </tfoot>
@@ -163,4 +186,4 @@ function Position() {
   );
 }
 
-export default Position;
+export default Positions;
