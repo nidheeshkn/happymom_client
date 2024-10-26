@@ -86,7 +86,7 @@ function Wallet() {
                       </thead>
                       <tbody>
                         {wallet.map((row) => (
-                          <tr key={row.description}>
+                          <tr key={row.id}>
                             <td>
                               <div className="flex items-center gap-3">
                               {row.description}

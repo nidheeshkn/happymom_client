@@ -3,14 +3,14 @@
 import { useState, useEffect } from "react";
 
 import { useRouter } from "next/navigation";
-import antiage from "../../../public/antiaging.png";
+import antiage from "@/public/antiaging.png";
 
-import sls from "../../../public/sls.png";
-import hop from "../../../public/forgiveness.png";
+import sls from ".@/public/sls.png";
+import hop from "@/public/forgiveness.png";
 
-import fam from "../../../public/fam.png";
+import fam from "@/public/fam.png";
 
-import mindtra from "../../../public/mindtra.png";
+import mindtra from "@/public/mindtra.png";
 
 
 

@@ -41,12 +41,18 @@ function Ham() {
               aria-label="close sidebar"
               className="drawer-overlay"
             ></label>
-            <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+            <ul className="menu p-4 w-72 min-h-full bg-base-200 text-base-content">
               {user.id === 10001 ? (
-                <li>
-                  {/* <a href="/subscriber/searchSubscriber">Search Subscriber</a> */}
-                  <a >Search Subscriber</a>
-                </li>
+                <>
+                  <li>
+                    {/* <a href="/subscriber/searchSubscriber">Search Subscriber</a> */}
+                    <a>Search Subscriber</a>
+                  </li>
+
+                  <li>
+                    <a href="/Admin/incentives">Incentives</a>
+                  </li>
+                </>
               ) : (
                 <></>
               )}

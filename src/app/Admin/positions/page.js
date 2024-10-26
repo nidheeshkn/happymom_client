@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "@/src/app/instance";
 import Image from "next/image";
-import editbtn from "../../../public/edit.png";
-import Ham from "../(components)/Ham";
-import BottomNavbar from "../(components)/BottomNavbar";
+import editbtn from "@/public/edit.png";
+import Ham from "../../(components)/Ham";
+import BottomNavbar from "../../(components)/BottomNavbar";
 
 function Position() {
   const [positionData, setPositionData] = useState([]);
@@ -42,14 +42,15 @@ function Position() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const data = new FormData();
-      data.append("position_name", formData.position_name);
-      data.append("position_rank", formData.position_rank);
-      data.append("total_subscribers", formData.total_subscribers);
-
+      // Send form data as JSON
       await axios.post(
         `${process.env.NEXT_PUBLIC_BASE_URL}/positions/add`,
-        data
+        formData,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
       );
 
       // Clear form and refetch data
@@ -58,6 +59,7 @@ function Position() {
         position_rank: "",
         total_subscribers: "",
       });
+      
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_BASE_URL}/positions/getall`
       );

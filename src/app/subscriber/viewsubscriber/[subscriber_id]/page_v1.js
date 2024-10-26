@@ -12,11 +12,8 @@ import Ham from "@/src/app/(components)/Ham";
 function ViewSubscriber() {
   const params = useParams();
   const passwordRef = useRef();
-  const subscriberRef=useRef();
   const amountRef = useRef();
-  const incentiveTypeRef = useRef(); // Ref for incentive type
-  const [incentiveTypes, setIncentiveTypes] = useState({});
-  
+
   const [users_data, setUsersData] = useState({});
   const [subscriber_data, setSubscriberData] = useState({});
   const [subscriber_user_data, setSubscriberUserData] = useState({});
@@ -45,19 +42,6 @@ function ViewSubscriber() {
         setSubscriberData(subscriber_data);
         setSubscriberUserData(subscriber_user_data);
         setSubordinateData(subordinate_data);
-
-        // subscriberRef.current.value=user_data.id;
-
-        const Incentive_res = await axios.get(
-         `${process.env.NEXT_PUBLIC_BASE_URL}/incentives/getall`
-          
-        );
-        console.log(Incentive_res.data);
-        
-
-
-        setIncentiveTypes(Incentive_res.data);
-
 
       } catch (err) {
         console.error(err);
@@ -105,24 +89,15 @@ function ViewSubscriber() {
   };
 
   const addIncentive = async () => {
-
-    console.log(users_data.id);
-    
     try {
-
-      console.log("trying to pay.... incentives");
-      
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/incentives/pay`, 
+        `${process.env.NEXT_PUBLIC_BASE_URL}/incentives/add`, // Update with the correct endpoint
         {
-          user_id: users_data.id,
-          incentiveType: incentiveTypeRef.current.value, // Get the selected value
+          user_id: subscriber_user_data.id,
           amount: amountRef.current.value,
         }
       );
 
-      console.log(res.data);
-      
       if (res.data.message === "Incentive added successfully") {
         amountRef.current.value = "";
         setToastMessage("Incentive added successfully!");
@@ -195,19 +170,6 @@ function ViewSubscriber() {
             <h2 className="font-bold text-lg">Add Incentive</h2>
             <h2 className="font-bold text-lg">{subscriber_data.name}</h2>
 
-
-            <select
-            ref={incentiveTypeRef}
-            className="select select-bordered w-full max-w-xs mt-2"
-            defaultValue=""
-          >
-            <option value="" disabled>Select Incentive Type</option>
-            {incentiveTypes.map((type) => (
-              <option key={type.id} value={type.id}>
-                {type.name}
-              </option>
-            ))}
-          </select>
             <input
               ref={amountRef}
               type="text"
@@ -215,9 +177,9 @@ function ViewSubscriber() {
               className="input input-bordered w-full max-w-xs mt-2"
             />
             <div className="modal-action">
-            <button className="btn" onClick={addIncentive}>
-  Add Incentive
-</button>
+              <button className="btn" onClick={()=>{addIncentive; }}>
+                Submit
+              </button>
               <button className="btn" onClick={() => setIsAddIncentiveModalOpen(false)}>
                 Cancel
               </button>
