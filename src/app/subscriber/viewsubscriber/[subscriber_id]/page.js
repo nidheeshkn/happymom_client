@@ -115,7 +115,7 @@ function ViewSubscriber() {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_BASE_URL}/incentives/pay`, 
         {
-          user_id: users_data.id,
+          user_id: subscriber_user_data.id,
           incentiveType: incentiveTypeRef.current.value, // Get the selected value
           amount: amountRef.current.value,
         }
