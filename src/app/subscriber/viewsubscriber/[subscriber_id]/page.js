@@ -9,23 +9,28 @@ import person from "@/public/person.png";
 import BottomNavbar from "@/src/app/(components)/BottomNavbar";
 import Ham from "@/src/app/(components)/Ham";
 
+import { RiKeyFill, RiLoopLeftFill, RiMoneyRupeeCircleFill } from '@remixicon/react'
+
+
 function ViewSubscriber() {
   const params = useParams();
   const passwordRef = useRef();
-  const subscriberRef=useRef();
   const amountRef = useRef();
   const incentiveTypeRef = useRef(); // Ref for incentive type
   const [incentiveTypes, setIncentiveTypes] = useState({});
-  
+
   const [users_data, setUsersData] = useState({});
   const [subscriber_data, setSubscriberData] = useState({});
   const [subscriber_user_data, setSubscriberUserData] = useState({});
   const [subordinate_data, setSubordinateData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [paying, setPaying] = useState(false);
+
   const [toastMessage, setToastMessage] = useState(""); // State for toast message
   const [toastType, setToastType] = useState(""); // State for toast type (success/error)
-  
-  const [isResetPasswordModalOpen, setIsResetPasswordModalOpen] = useState(false); // State for reset password modal
+
+  const [isResetPasswordModalOpen, setIsResetPasswordModalOpen] =
+    useState(false); // State for reset password modal
   const [isAddIncentiveModalOpen, setIsAddIncentiveModalOpen] = useState(false); // State for add incentive modal
 
   const router = useRouter();
@@ -39,7 +44,12 @@ function ViewSubscriber() {
           { params }
         );
 
-        const { user_data, subscriber_data, subscriber_user_data, subordinate_data } = response.data;
+        const {
+          user_data,
+          subscriber_data,
+          subscriber_user_data,
+          subordinate_data,
+        } = response.data;
 
         setUsersData(user_data);
         setSubscriberData(subscriber_data);
@@ -49,16 +59,11 @@ function ViewSubscriber() {
         // subscriberRef.current.value=user_data.id;
 
         const Incentive_res = await axios.get(
-         `${process.env.NEXT_PUBLIC_BASE_URL}/incentives/getall`
-          
+          `${process.env.NEXT_PUBLIC_BASE_URL}/incentives/getall`
         );
         console.log(Incentive_res.data);
-        
-
 
         setIncentiveTypes(Incentive_res.data);
-
-
       } catch (err) {
         console.error(err);
         alert("An error occurred while fetching data.");
@@ -81,16 +86,15 @@ function ViewSubscriber() {
       );
 
       console.log(res.data);
-      
 
       if (res.data.message === "password saved successfuly") {
         console.log(res.data.message);
-        
+
         setIsResetPasswordModalOpen(false);
         passwordRef.current.value = "";
         setToastMessage("Password reset successfully!");
         setToastType("success");
-        
+
         // Automatically hide the toast after a few seconds
         setTimeout(() => {
           setToastMessage("");
@@ -105,15 +109,14 @@ function ViewSubscriber() {
   };
 
   const addIncentive = async () => {
-
+    setPaying(true);
     console.log(users_data.id);
-    
-    try {
 
+    try {
       console.log("trying to pay.... incentives");
-      
+
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/incentives/pay`, 
+        `${process.env.NEXT_PUBLIC_BASE_URL}/incentives/pay`,
         {
           user_id: subscriber_user_data.id,
           incentiveType: incentiveTypeRef.current.value, // Get the selected value
@@ -122,17 +125,20 @@ function ViewSubscriber() {
       );
 
       console.log(res.data);
-      
-      if (res.data.message === "Incentive added successfully") {
+
+      if (res.data.message == "Incentives paid successfully") {
         amountRef.current.value = "";
-        setToastMessage("Incentive added successfully!");
+        console.log(res.data.message);
+        setPaying(false);
+        setIsAddIncentiveModalOpen(false);
+        setToastMessage(res.data.message);
         setToastType("success");
 
         // Automatically hide the toast after a few seconds
         setTimeout(() => {
           setToastMessage("");
           setToastType("");
-          setIsAddIncentiveModalOpen(false); // Close modal on success
+          setIsResetPasswordModalOpen(false); // Close modal on success
         }, 3000);
       }
     } catch (error) {
@@ -150,7 +156,7 @@ function ViewSubscriber() {
             className="btn btn-secondary"
             onClick={() => setIsResetPasswordModalOpen(true)} // Open reset password modal
           >
-            Reset Password
+<RiKeyFill/>
           </button>
         </div>
         <div>
@@ -158,7 +164,7 @@ function ViewSubscriber() {
             className="btn btn-secondary"
             onClick={() => setIsAddIncentiveModalOpen(true)} // Open add incentive modal
           >
-            Add Incentive
+          <RiMoneyRupeeCircleFill/>
           </button>
         </div>
       </div>
@@ -180,7 +186,10 @@ function ViewSubscriber() {
               <button className="btn" onClick={handleResetPassword}>
                 Submit
               </button>
-              <button className="btn" onClick={() => setIsResetPasswordModalOpen(false)}>
+              <button
+                className="btn"
+                onClick={() => setIsResetPasswordModalOpen(false)}
+              >
                 Cancel
               </button>
             </div>
@@ -195,19 +204,20 @@ function ViewSubscriber() {
             <h2 className="font-bold text-lg">Add Incentive</h2>
             <h2 className="font-bold text-lg">{subscriber_data.name}</h2>
 
-
             <select
-            ref={incentiveTypeRef}
-            className="select select-bordered w-full max-w-xs mt-2"
-            defaultValue=""
-          >
-            <option value="" disabled>Select Incentive Type</option>
-            {incentiveTypes.map((type) => (
-              <option key={type.id} value={type.id}>
-                {type.name}
+              ref={incentiveTypeRef}
+              className="select select-bordered w-full max-w-xs mt-2"
+              defaultValue=""
+            >
+              <option value="" disabled>
+                Select Incentive Type
               </option>
-            ))}
-          </select>
+              {incentiveTypes.map((type) => (
+                <option key={type.id} value={type.id}>
+                  {type.name}
+                </option>
+              ))}
+            </select>
             <input
               ref={amountRef}
               type="text"
@@ -215,10 +225,13 @@ function ViewSubscriber() {
               className="input input-bordered w-full max-w-xs mt-2"
             />
             <div className="modal-action">
-            <button className="btn" onClick={addIncentive}>
-  Add Incentive
-</button>
-              <button className="btn" onClick={() => setIsAddIncentiveModalOpen(false)}>
+              <button className="btn" onClick={addIncentive}>
+                {paying ? "Paying Incentive...." : "Pay Incentive"}
+              </button>
+              <button
+                className="btn"
+                onClick={() => setIsAddIncentiveModalOpen(false)}
+              >
                 Cancel
               </button>
             </div>
@@ -229,7 +242,11 @@ function ViewSubscriber() {
       {/* Toast Notifications */}
       {toastMessage && (
         <div className={`toast toast-start toast-middle`}>
-          <div className={`alert ${toastType === "success" ? "alert-success" : "alert-error"}`}>
+          <div
+            className={`alert ${
+              toastType === "success" ? "alert-success" : "alert-error"
+            }`}
+          >
             <span>{toastMessage}</span>
           </div>
         </div>
@@ -240,17 +257,25 @@ function ViewSubscriber() {
         <div className="w-90 flex justify-center items-center mt-[2rem]">
           <div className="w-full flex flex-col justify-center h-[28vh] bg-[#9A8C3C] rounded-md px-5">
             <div className="flex h-10 justify-between items-center">
-              <h4 className="text-[#C6C6C6] font-semibold textshadow">happymom.com.in</h4>
-              <h6 className="text-[#C6C6C6] text-sm font-semibold textshadow">{subscriber_user_data.mobile_number}</h6>
+              <h4 className="text-[#C6C6C6] font-semibold textshadow">
+                happymom.com.in
+              </h4>
+              <h6 className="text-[#C6C6C6] text-sm font-semibold textshadow">
+                {subscriber_user_data.mobile_number}
+              </h6>
             </div>
 
             <div className="mt-5 flex ">
               <Image src={chip} alt="logo" width={40} height={40} />
-              <h4 className="text-[#C6C6C6] font-semibold">{subscriber_data.subscriber_id}</h4>
+              <h4 className="text-[#C6C6C6] font-semibold">
+                {subscriber_data.subscriber_id}
+              </h4>
             </div>
 
             <div className="flex h-10 justify-between items-center">
-              <h4 className="text-[#C6C6C6] font-semibold textshadow">{subscriber_data.name}</h4>
+              <h4 className="text-[#C6C6C6] font-semibold textshadow">
+                {subscriber_data.name}
+              </h4>
               <div className="flex flex-col items-center text-[#C6C6C6] text-sm font-semibold">
                 <h6 className="textshadow">Valid Till</h6>
                 <h6 className="textshadow">{subscriber_data.validity_date}</h6>
@@ -275,12 +300,25 @@ function ViewSubscriber() {
                 <tbody>
                   {subordinate_data.map((subscriber) => (
                     <tr key={subscriber.subscriber_id}>
-                      <td onClick={() => router.push(`/subscriber/viewsubscriber/${subscriber.subscriber_id}`)}>
+                      <td
+                        onClick={() =>
+                          router.push(
+                            `/subscriber/viewsubscriber/${subscriber.subscriber_id}`
+                          )
+                        }
+                      >
                         <div className="flex items-center gap-3 cursor-pointer">
-                          <Image alt="person" src={person} width={40} height={40} />
+                          <Image
+                            alt="person"
+                            src={person}
+                            width={40}
+                            height={40}
+                          />
                           <div>
                             <div className="font-bold">{subscriber.name}</div>
-                            <div className="text-sm opacity-50">{subscriber.position_id}</div>
+                            <div className="text-sm opacity-50">
+                              {subscriber.position_id}
+                            </div>
                           </div>
                         </div>
                       </td>
