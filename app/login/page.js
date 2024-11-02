@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect,  useState } from "react";
 import axios from "axios"
 
 import { useRouter } from "next/navigation";
@@ -20,7 +20,6 @@ function Registration() {
   const [password, setPassword] = useState("");
   const [loginerr, setLoginErr] = useState("");
 
-  const [hookform,setHooks] = useState()
   const [show,setShow] = useState("view")
   const router = useRouter();
 
@@ -43,7 +42,12 @@ function Registration() {
   }, []);
 
   return (
-    <div className="w-full h-screen px-7 flex justify-center items-center">
+    <>
+     <div className="py-6 px-3 flex justify-between items-center">
+        <h1 className="text-xl" >happymom.com.in </h1>
+      </div>
+    <div className="w-full h-96 px-7 flex justify-center items-center">
+     
       <div className="w-full  border-2 border-black rounded-lg h-96">
         <div className="flex justify-center font-semibold text-xl  ">
           <span className="my-5">Login</span>
@@ -122,6 +126,8 @@ function Registration() {
                   
                   
                 } catch (error) {
+                  console.log(error);
+                  
                   setLoginErr(true);
                   
                 }
@@ -145,6 +151,7 @@ function Registration() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

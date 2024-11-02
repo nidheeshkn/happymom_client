@@ -63,6 +63,7 @@ function ResetPassword() {
                     }
 
                   } catch (error) {
+console.log(error);
 
                   }
 

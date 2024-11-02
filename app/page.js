@@ -19,11 +19,11 @@ export default function Home() {
     if (token) {
       router.push("/subscriber/home");
     }
-  }, []);
+  }, [router]);
   return (
     <div>
       <div className="py-6 px-3 flex justify-between items-center">
-        <h1>Happymom</h1>
+        <h1 className="text-xl" >happymom.com.in </h1>
         <button
           className="btn btn-outline btn-primary"
           onClick={() => {
@@ -34,7 +34,7 @@ export default function Home() {
         </button>
       </div>
       <div className="w-full h-[56vh] bg-[#FFA39C] flex flex-col justify-end items-center">
-        <h1 className="text-xl font-semibold px-5">
+        <h1 className="text-xl text-blue-800 font-semibold px-5">
           Make Your Parenting A Success
         </h1>
 

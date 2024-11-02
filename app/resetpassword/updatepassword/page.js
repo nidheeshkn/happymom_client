@@ -5,25 +5,25 @@ import axios from "@/app/instance"
 
 function Registration() {
   const [link, setLink] = useState("");
-  const [referer, setReferer] = useState("");
+  // const [referer, setReferer] = useState("");
 
-  const [mobileerr, setMobileErr] = useState(false);
+  // const [mobileerr, setMobileErr] = useState(false);
 
   const [passworderr, setPasswordErr] = useState(false);
 
   const [confpassworderr, setConfPasswordErr] = useState(false);
 
 
-  const [emailerr, setEmailErr] = useState(false);
+  // const [emailerr, setEmailErr] = useState(false);
 
 
-  const mobileRef = useRef("");
+  // const mobileRef = useRef("");
 
   const passwordRef = useRef("");
 
   const confirmRef = useRef("");
 
-  const emailRef = useRef("");
+  // const emailRef = useRef("");
 
 
   useEffect(() => {
@@ -104,7 +104,7 @@ function Registration() {
 
           />
           {
-            confpassworderr && <span className="text-[#ff0000]">Password doesn't match</span>
+            confpassworderr && <span className="text-[#ff0000]">Password doesn&apos;t match</span>
 
           }
 

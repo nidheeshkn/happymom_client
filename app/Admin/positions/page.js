@@ -96,7 +96,6 @@ function Positions() {
                   <table className="table table-pin-rows table-pin-cols text-center text-xs">
                     <thead>
                       <tr className=" pl-4 pr-4 ">
-                        <th className=" pl-4 pr-4 ">SL</th>
                         <th >Name</th>
                         <th className=" pl-4 pr-4 ">Rank</th>
                         <th>Gross Wallet</th>
@@ -105,7 +104,6 @@ function Positions() {
                     </thead>
                     <tbody>
                       <tr>
-                        <td className=" pl-4 pr-4 "></td>
                         <td>
                           <input
                             type="text"
@@ -145,9 +143,8 @@ function Positions() {
                           </button>
                         </td>
                       </tr>
-                      {tableData.map((row, index) => (
+                      {tableData.map((row ) => (
                         <tr key={row.position_id}>
-                          <td>{index + 1}</td> {/* Displaying index as SL */}
                           <td>{row.position_name}</td>
                           <td>{row.position_rank}</td>
                           <td>{row.gross_wallet}</td>

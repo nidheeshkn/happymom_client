@@ -2,13 +2,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "@/app/instance"
 import Ham from "@/app/(components)/Ham";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 
 
 
 function UpdateEmail() {
 
-  const router = useRouter()
+  // const router = useRouter()
 
   const [users_data, setUsersData] = useState({});
   const [showinfo, setShowInfo] = useState(false)
@@ -43,18 +43,8 @@ function UpdateEmail() {
     <div className="w-full max-h-screen h-screen overflow-y-scroll">
       <Ham />
       <div className="w-full px-7 flex justify-center items-center ">
-        <div></div>
         <div className="w-full flex justify-between">
-          <button
-            className="px-5 py-1 bg-slate-500 rounded-md text-white "
-            onClick={() => {
-              router.push("/subscriber/home")
-            }}
-          >
-            Home
-          </button>
-
-
+          
         </div>
       </div>
       <div className="w-full h-screen px-6 flex justify-center items-center ">

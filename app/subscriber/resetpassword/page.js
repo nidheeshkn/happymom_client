@@ -6,30 +6,29 @@ import { useRouter } from "next/navigation";
 
 import Ham from "@/app/(components)/Ham";
 
-
 function PasswordReset() {
-
   useEffect(() => {
-
-
     (async function () {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/subscriber/home`);
-        console.log(response)
+          `${process.env.NEXT_PUBLIC_BASE_URL}/subscriber/home`
+        );
+        console.log(response);
+      } catch (err) {
+        console.log(err);
       }
-      catch (err) {
-        console.log(err)
-      }
-    })()
-  })
+    })();
+  });
   const [password, setPassword] = useState({
     passwordErr: "",
     passwordtog: false,
   });
   const [pass, setPass] = useState({ passwordErr: "", passwordtog: false });
   const [conf, setConf] = useState({ passwordErr: "", passwordtog: false });
-  const [passworderr, setPasswordErr] = useState({ passwordErr: "", passwordtog: false });
+  const [passworderr, setPasswordErr] = useState({
+    passwordErr: "",
+    passwordtog: false,
+  });
 
   const passwordRef = useRef("");
 
@@ -37,27 +36,14 @@ function PasswordReset() {
 
   const currentPasswordRef = useRef("");
 
-  const router = useRouter()
+  const router = useRouter();
   return (
-
     <div className="w-full max-h-screen h-screen overflow-y-scroll">
       <Ham />
 
-
-
       <div className="w-full h-screen px-7 flex flex-col justify-center items-center ">
-
-
         <div className="w-full flex justify-between">
-          <button
-            className="px-5 py-1 bg-slate-500 rounded-md text-white "
-            onClick={() => {
-              router.push("/subscriber/home")
-            }}
-          >
-            Home
-          </button>
-
+         
           <div></div>
         </div>
         <div className="w-full  border-2 border-black rounded-lg h-[30rem] px-6 ">
@@ -69,7 +55,7 @@ function PasswordReset() {
             ref={currentPasswordRef}
             placeholder="Current Password"
             type="text"
-            className="placeholder:text-black placeholder:font-semibold px-3 focus:outline-blue-400 rounded-lg border-2 border-black w-full py-2 mt-5 "
+            className=" text-black placeholder:text-gray-500 placeholder:font-semibold px-3 focus:outline-blue-400 rounded-lg border-2 border-black w-full py-2 mt-5 "
           />
 
           {password.passwordtog && (
@@ -80,7 +66,7 @@ function PasswordReset() {
             ref={passwordRef}
             placeholder="New password"
             type="text"
-            className="placeholder:text-black placeholder:font-semibold px-3 focus:outline-blue-400 rounded-lg border-2 border-black w-full py-2 mt-5 "
+            className="text-black placeholder:text-gray-500 placeholder:font-semibold px-3 focus:outline-blue-400 rounded-lg border-2 border-black w-full py-2 mt-5 "
           />
 
           {conf.passwordtog && (
@@ -91,7 +77,7 @@ function PasswordReset() {
             ref={confirmRef}
             placeholder="Confirm new password"
             type="text"
-            className="placeholder:text-black placeholder:font-semibold px-3 focus:outline-blue-400 rounded-lg border-2 border-black w-full py-2 mt-5 "
+            className="text-black placeholder:text-gray-500 placeholder:font-semibold px-3 focus:outline-blue-400 rounded-lg border-2 border-black w-full py-2 mt-5 "
           />
           {conf.passwordtog && (
             <span className="text-red-600">{pass.passwordErr}</span>
@@ -165,78 +151,40 @@ function PasswordReset() {
                   passwordtog: true,
                 });
               } else {
-
                 (async function () {
                   try {
-                    console.log(currentPasswordRef.current.value, passwordRef.current.value >= 5 && confirmRef.current.value >= 5);
-                    if (currentPasswordRef.current.value.length >= 5 && passwordRef.current.value.length >= 5 && confirmRef.current.value.length >= 5) {
-
-
-                      const data = await axios.post(
+                    console.log(
+                      currentPasswordRef.current.value,
+                      passwordRef.current.value >= 5 &&
+                        confirmRef.current.value >= 5
+                    );
+                    if (
+                      currentPasswordRef.current.value.length >= 5 &&
+                      passwordRef.current.value.length >= 5 &&
+                      confirmRef.current.value.length >= 5
+                    ) {
+                      const res = await axios.post(
                         `${process.env.NEXT_PUBLIC_BASE_URL}/users/resetmypassword`,
                         {
                           curr: currentPasswordRef.current.value,
                           newpassword: passwordRef.current.value,
-                        })
+                        }
+                      );
 
+                      console.log(res.data);
 
-
-
-
-
-
-
-
-
-
-
-
-
-                      router.push('/subscriber/userprofile')
-
+                      router.push("/subscriber/userprofile");
                     }
-                  }
-                  catch (err) {
-
-
-
+                  } catch (err) {
                     console.log(err.response.data, "1234");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                     setPasswordErr({
-
-
-
-
                       passwordErr: err.response.data.message,
 
-
-
-
-
-
-                      passwordtog: true
-                    })
+                      passwordtog: true,
+                    });
                   }
-                })()
+                })();
               }
             }}
           >
@@ -244,8 +192,8 @@ function PasswordReset() {
           </button>
         </div>
       </div>
-      </div>
-      );
+    </div>
+  );
 }
 
 export default PasswordReset;

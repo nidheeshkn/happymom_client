@@ -92,7 +92,10 @@ function Registration() {
                     } else {
                       setMobileErr(false);
                     }
-                  } catch (error) {}
+                  } catch (error) {
+                    console.log(error);
+                    
+                  }
                 })();
               }
             }}
@@ -143,7 +146,7 @@ function Registration() {
             }}
           />
           {confpassworderr && (
-            <span className="text-[#ff0000]">Password doesn't match</span>
+            <span className="text-[#ff0000]">Password doesn&apos;t match</span>
           )}
 
           <input
@@ -151,18 +154,14 @@ function Registration() {
             placeholder="Name"
             type="text"
             className="placeholder:text-black placeholder:font-semibold px-3  focus:outline-blue-400 rounded-md border-2 border-black w-full py-2 mt-5 "
-            onChange={(e)=>{
-              const name=e.target.value;
-            }}
+            // onChange={(e)=>{         }}
           />
           <input
             ref={emailRef}
             placeholder="Email"
             type="text"
             className="placeholder:text-black placeholder:font-semibold px-3  focus:outline-blue-400 rounded-md border-2 border-black w-full py-2 mt-5 "
-            onChange={(e)=>{
-              const email=e.target.value;
-            }}
+            // onChange={(e)=>{              const email=e.target.value;            }}
           />
 
           {emailerr.emailerr && (

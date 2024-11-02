@@ -94,12 +94,10 @@ function Incentive() {
                   <table className="table table-md table-pin-rows table-pin-cols text-center text-xs">
                     <thead>
                       <tr>
-                        <>
                         <th>SL</th>
                         <th>Name</th>
                         <th>Description</th>
-                        <th>&nbsp;</th>
-                        </>
+                        <th></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -140,12 +138,12 @@ function Incentive() {
                           <td>{row.name}</td>
                           <td>{row.description}</td>
                           <td>
-                            <span
+                            <button
                               onClick={() => handleEdit(row)}
                               className="btn btn-outline btn-accent"
                             >
                               Edit
-                            </span>
+                            </button>
                           </td>
                         </tr>
                       ))}

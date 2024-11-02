@@ -9,7 +9,7 @@ import person from "@/public/person.png";
 import BottomNavbar from "@/app/(components)/BottomNavbar";
 import Ham from "@/app/(components)/Ham";
 
-import { RiKeyFill, RiLoopLeftFill, RiMoneyRupeeCircleFill } from '@remixicon/react'
+import { RiKeyFill,  RiMoneyRupeeCircleFill } from '@remixicon/react'
 
 
 function ViewSubscriber() {

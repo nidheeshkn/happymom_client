@@ -17,7 +17,9 @@ function EditProfile() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/subscriber/profile`);
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/subscriber/profile`
+        );
         setFormData(response.data.my_data);
       } catch (error) {
         console.error(error);
@@ -39,7 +41,10 @@ function EditProfile() {
   const handleUpdate = async () => {
     setIsUpdating(true);
     try {
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/subscriber/update_me`, formData);
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/subscriber/update_me`,
+        formData
+      );
       if (response.data.status === "success") {
         setToastText("Successfully Updated...");
         setToggle(false);
@@ -58,6 +63,10 @@ function EditProfile() {
 
   return (
     <div className="w-full max-h-screen h-screen overflow-y-scroll">
+      <div className="w-full">
+        <Ham />
+      </div>
+
       {toast && (
         <div className="toast toast-middle toast-center z-50">
           <div className="alert alert-info">
@@ -89,35 +98,36 @@ function EditProfile() {
           </div>
         </div>
       )}
-      <div className="">
-        <Ham />
-      </div>
 
-      <div className="mb-5 mt-[7vh] w-full flex justify-between px-5">
-        <button
-          className="px-5 py-1 bg-slate-500 rounded-md text-white"
-          onClick={() => router.push("/subscriber/home")}
-        >
-          Home
-        </button>
-      </div>
-
-      <div className="px-5 max-h-[65vh] overflow-y-scroll overflow-x-hidden">
+      <div className="px-5 max-h-[34rem] overflow-y-scroll overflow-x-hidden ">
         {loading ? (
           <div className="text-center">Loading data...</div>
         ) : (
-          Object.keys(formData).map((key) => (
-            <label key={key} className="input input-bordered flex items-center w-full gap-2">
-              {key.replace(/_/g, " ").replace(/\b\w/g, char => char.toUpperCase())}
-              <input
-                type="text"
-                name={key}
-                className="grow"
-                defaultValue={formData[key]}
-                onChange={handleInputChange}
-              />
-            </label>
-          ))
+          Object.keys(formData).map((key) =>
+            key !== "subscriber_id" &&
+            key !== "parent_id" &&
+            key !== "position_id" &&
+            key !== "doj" &&
+            key !== "validity_date" &&
+            key !== "gross_wallet" &&
+            key !== "wallet_balance" &&
+            key !== "createdAt" &&
+            key !== "updatedAt" &&
+            key !== "active" ? (
+              <label key={key} className="">
+                {key
+                  .replace(/_/g, " ")
+                  .replace(/\b\w/g, (char) => char.toUpperCase())}
+                <input
+                  type="text"
+                  name={key}
+                  className="w-full py-2 mb-4"
+                  defaultValue={formData[key]}
+                  onChange={handleInputChange}
+                />
+              </label>
+            ) : null
+          )
         )}
       </div>
       <div className="w-full px-5 mt-3">

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "@/app/instance";
+import { RiHome4Line } from "@remixicon/react";
 
 function Ham() {
   const router = useRouter();
@@ -23,8 +24,16 @@ function Ham() {
   }, []);
   return (
     <div className="  ">
-      <div className="w-full px-5  bg-white  flex justify-between items-center pt-5">
+      <div className="w-full px-5   flex justify-between items-center pt-5">
         <div className="text-xl font-bold"><a href="/subscriber/home">Happymom</a></div>
+        <button
+            className="px-5 py-1  rounded-md  "
+            onClick={() => {
+              router.push("/subscriber/home");
+            }}
+          >
+            <RiHome4Line/>
+          </button>
 
         <div className="drawer drawer-end w-[2rem]">
           <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
