@@ -153,7 +153,7 @@ function ViewSubscriber() {
       <div className="pl-4 pr-4 pt-4 grid grid-cols-2 gap-4">
         <div>
           <button
-            className="btn btn-secondary"
+            className="btn btn-secondary bg-slate-500"
             onClick={() => setIsResetPasswordModalOpen(true)} // Open reset password modal
           >
 <RiKeyFill/>
@@ -161,7 +161,7 @@ function ViewSubscriber() {
         </div>
         <div>
           <button
-            className="btn btn-secondary"
+            className="btn btn-secondary bg-slate-500"
             onClick={() => setIsAddIncentiveModalOpen(true)} // Open add incentive modal
           >
           <RiMoneyRupeeCircleFill/>

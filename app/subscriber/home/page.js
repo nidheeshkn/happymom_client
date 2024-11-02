@@ -3,7 +3,7 @@
 import axios from "@/app/instance";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-// import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import chip from "@/public/chip.png";
 import person from "@/public/person.png";
 
@@ -14,7 +14,7 @@ function Home() {
   const [subscriberData, setSubscriberData] = useState({});
   const [subordinateData, setSubordinateData] = useState([]);
   const [error, setError] = useState(null);
-  // const router = useRouter();
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -87,7 +87,14 @@ function Home() {
                                 </div>
                               </div>
                               <div>
-                                <div className="font-bold">{subscriber.name}</div>
+                                <div 
+                                className="font-bold"
+                                onClick={() => {
+                                  router.push(
+                                    `/subscriber/viewsubscriber/${subscriber.subscriber_id}`
+                                  );
+                                }}
+                                >{subscriber.name}</div>
                                 <div className="text-sm opacity-50">{subscriber.position_id}</div>
                               </div>
                             </div>
