@@ -3,21 +3,22 @@ import React, { useEffect,  useState } from "react";
 import axios from "@/app/instance";
 
 
-import Ham from "@/app/(components)/Ham";
-import BottomNavbar from "@/app/(components)/BottomNavbar";
 
-function Wallet() {
+
+function WalletDetails({userData}) {
   const [wallet, setWallet] = useState([]);
   const [userwallet, setUserWallet] = useState({});
 
-  // const [link, setLink] = useState("");
-  // const router = useRouter();
 
   useEffect(() => {
+
     (async function () {
       try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/myWallet`
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/walletDetails`,
+          {
+            user_id: userData.id,
+          }
         );
 
         // console.log(response.data);
@@ -30,11 +31,10 @@ function Wallet() {
         console.log(err);
       }
     })();
-  }, []);
+  }, [userData]);
 
   return (
-    <div className="w-full min-h-screen  overflow-y-scroll justify-center">
-      <Ham/>
+
       <div className=" p-2">
         {userwallet ? (
           <>
@@ -106,13 +106,9 @@ function Wallet() {
             </div>
           </div>
         </div>
-
-        <div className="w-full h-16 bg-[#4F95FF] fixed z-10 bottom-0 flex justify-between items-center px-5">
-          <BottomNavbar />
-        </div>
       </div>
-    </div>
+    
   );
 }
 
-export default Wallet;
+export default WalletDetails;
