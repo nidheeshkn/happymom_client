@@ -272,7 +272,7 @@ function ViewSubscriber() {
       )}
 
       {/* Subscriber Info */}
-      {displayWallet?<WalletDetails userData={users_data}/>:
+      {displayWallet?<WalletDetails userData={subscriber_user_data}/>:
       <SubscriberDetails subscriberUserData={subscriber_user_data} subscriberData={subscriber_data} subordinateData={subordinate_data} />
       }
       {/* Bottom Navbar */}
