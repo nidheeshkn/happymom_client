@@ -107,15 +107,14 @@ function WithdrawalTypes() {
         <Ham />
         <div className="flex flex-col overflow-y-scroll text-3xl">
           <div className="overflow-x-hidden max-h-[95vh]">
-            <div className="inline-block min-w-full py-2">
                 <form onSubmit={handleSubmit}>
-                  <table className="table table-pin-rows table-pin-cols text-center text-xs">
+                  <table className="table table-pin-rows table-pin-cols text-center text-xs w-96">
                     <thead>
                       <tr className=" text-lg">
-                        <th>title</th>
-                        <th >description</th>
-                        <th>active</th>
-                        <th>
+                        <th className="p-2">title</th>
+                        <th className="p-2" >description</th>
+                        <th className="p-2">active</th>
+                        <th className="p-2">
                           {displayForm===true?
                           <span
                           onClick={() => {
@@ -185,7 +184,7 @@ function WithdrawalTypes() {
                           </td>
                         </tr>
                       ) : (
-                        <></>
+                        <tr></tr>
                       )}
                       {tableData.map((row) => (
                         <tr key={row.id}>
@@ -214,7 +213,6 @@ function WithdrawalTypes() {
                   </table>
                 </form>
             </div>
-          </div>
         </div>
 
         <div className="w-full h-16 bg-[#4F95FF] fixed z-10 bottom-0 flex justify-between items-center px-5">
