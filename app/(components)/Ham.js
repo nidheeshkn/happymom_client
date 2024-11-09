@@ -94,6 +94,9 @@ function Ham() {
                   <li>
                     <a href="/Admin/positions">Positions</a>
                   </li>
+                  <li>
+                    <a href="/Admin/withdrawalTypes">Withdrawal Types</a>
+                  </li>
                 </>
               ) : (
                 <></>
