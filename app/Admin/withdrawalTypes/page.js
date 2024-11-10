@@ -112,10 +112,10 @@ function WithdrawalTypes() {
                   <table className="table table-pin-rows table-pin-cols text-center text-xs">
                     <thead>
                       <tr className=" text-lg">
-                        <th>title</th>
-                        <th >description</th>
-                        <th>active</th>
-                        <th>
+                        <th className="p-2">title</th>
+                        <th className="p-2">description</th>
+                        <th className="p-2">active</th>
+                        <th className="p-2"> 
                           {displayForm===true?
                           <span
                           onClick={() => {
