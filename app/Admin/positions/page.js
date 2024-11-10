@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "@/app/instance";
 import Ham from "../../(components)/Ham";
 import BottomNavbar from "../../(components)/BottomNavbar";
+import { RiAddLine, RiCloseLine, RiEdit2Line, RiLoopRightLine, RiPlayListAddLine } from "@remixicon/react";
 
 function Positions() {
   const controller = "positions";
@@ -13,7 +14,9 @@ function Positions() {
     position_rank: "",
     gross_wallet: "",
   });
+
   const [isEditing, setIsEditing] = useState(false); // State to track editing mode
+  const [displayForm, setDisplayForm] = useState(false); // State to track editing mode
 
   useEffect(() => {
     fetchData();
@@ -43,6 +46,7 @@ function Positions() {
   const handleEdit = (row) => {
     setFormData({ ...row }); // Set form data to the copied row
     setIsEditing(true); // Switch to editing mode
+    setDisplayForm(true);
   };
 
   const handleSubmit = async (e) => {
@@ -78,11 +82,21 @@ function Positions() {
         gross_wallet: "",
       });
       setIsEditing(false); // Reset editing state
+      setDisplayForm(false);
       fetchData();
     } catch (error) {
       console.error("Error adding/updating incentive:", error);
     }
   };
+
+  const resetFromData = async () => {
+    setFormData({
+      position_id: "",
+    position_name: "",
+    position_rank: "",
+    gross_wallet: "",
+    });
+  }
 
   return (
     <>
@@ -90,60 +104,86 @@ function Positions() {
         <Ham />
         <div className="flex flex-col overflow-y-scroll text-3xl">
           <div className="overflow-x-hidden max-h-[95vh]">
-            <div className="inline-block min-w-full py-2">
-              <div className="overflow-x-auto">
                 <form onSubmit={handleSubmit}>
-                  <table className="table table-pin-rows table-pin-cols text-center text-xs">
+                  <table className="table table-pin-rows table-pin-cols text-center text-xs w-96">
                     <thead>
-                      <tr className=" pl-4 pr-4 ">
-                        <th >Name</th>
-                        <th className=" pl-4 pr-4 ">Rank</th>
-                        <th>Gross Wallet</th>
-                        <th>&nbsp;</th>
+                      <tr className=" text-lg">
+                        <th className="p-2">Name</th>
+                        <th className="p-2" >Rank</th>
+                        <th className="p-2">Gross Wallet</th>
+                        <th className="p-2">
+                          {displayForm===true?
+                          <span
+                          onClick={() => {
+                            setDisplayForm(false);
+                            resetFromData();
+                            setIsEditing(false); 
+                          }}
+                          className="btn btn-outline btn-accent "
+                        >
+                          <RiCloseLine />
+                        </span>:
+                        <span
+                        onClick={() => {
+                          setDisplayForm(true);
+                          resetFromData();
+                          setIsEditing(false); 
+                        }}
+                        className="btn btn-outline btn-accent "
+                      >
+                        <RiPlayListAddLine />
+                      </span>
+                        }
+                          
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>
-                          <input
-                            type="text"
-                            name="position_name"
-                            value={formData.position_name}
-                            onChange={handleInputChange}
-                            placeholder="Name"
-                            className="input input-bordered input-accent w-full max-w-xs p-1 text-center"
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="position_rank"
-                            value={formData.position_rank}
-                            onChange={handleInputChange}
-                            placeholder="Rank"
-                            className="input input-bordered input-accent w-full max-w-xs p-1 text-center"
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="gross_wallet"
-                            value={formData.gross_wallet}
-                            onChange={handleInputChange}
-                            placeholder="Amount"
-                            className="input input-bordered input-accent w-full max-w-xs p-1 text-center"
-                          />
-                        </td>
-                        <td>
-                          <button
-                            type="submit"
-                            className="btn btn-outline btn-accent"
-                          >
-                            {isEditing ? "Update" : "Add"}
-                          </button>
-                        </td>
-                      </tr>
-                      {tableData.map((row ) => (
+                      {displayForm ? (
+                        <tr>
+                          <td>
+                            <input
+                              type="text"
+                              name="position_name"
+                              value={formData.position_name}
+                              onChange={handleInputChange}
+                              placeholder="Name"
+                              className="input input-bordered input-accent w-full max-w-xs p-1 text-center"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="position_rank"
+                              value={formData.position_rank}
+                              onChange={handleInputChange}
+                              placeholder="Rank"
+                              className="input input-bordered input-accent w-full max-w-xs p-1 text-center"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="gross_wallet"
+                              value={formData.gross_wallet}
+                              onChange={handleInputChange}
+                              placeholder="amount"
+                              className="input input-bordered input-accent w-full max-w-xs p-1 text-center"
+                            />
+                          </td>
+                          <td>
+                            <button
+                              type="submit"
+                              className="btn btn-outline btn-accent"
+                            >
+                              {isEditing ? <RiLoopRightLine /> : <RiAddLine />}
+                            </button>
+                          </td>
+                        </tr>
+                      ) : (
+                        <tr></tr>
+                      )}
+                      {tableData.map((row) => (
                         <tr key={row.position_id}>
                           <td>{row.position_name}</td>
                           <td>{row.position_rank}</td>
@@ -153,7 +193,7 @@ function Positions() {
                               onClick={() => handleEdit(row)}
                               className="btn btn-outline btn-accent"
                             >
-                              Edit
+                              <RiEdit2Line />
                             </span>
                           </td>
                         </tr>
@@ -161,18 +201,15 @@ function Positions() {
                     </tbody>
                     <tfoot>
                       <tr>
-                      <th>SL</th>
-                        <th>Name</th>
-                        <th>Rank</th>
-                        <th>Gross Wallet</th>
-                        <th></th>
+                      <th className="p-2">Name</th>
+                        <th className="p-2" >Rank</th>
+                        <th className="p-2">Gross Wallet</th>
+                        <th>&nbsp;</th>
                       </tr>
                     </tfoot>
                   </table>
                 </form>
-              </div>
             </div>
-          </div>
         </div>
 
         <div className="w-full h-16 bg-[#4F95FF] fixed z-10 bottom-0 flex justify-between items-center px-5">
